@@ -8,7 +8,7 @@ var chalk = require('chalk');
 var Generator = module.exports = function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
 
-  this.argument('suffix', {type: String, required: false, optional: true, defaults: ''});
+  this.argument('subdir', {type: String, required: false, optional: true, defaults: ''});
   
   try {
     this.appname = require(path.join(process.cwd(), 'bower.json')).name;
@@ -106,17 +106,15 @@ Generator.prototype.addScriptToIndex = function (script) {
   }
 };
 
-Generator.prototype.generateSourceAndTest = function (appTemplate, testTemplate, _targetDirectory, skipAdd) {
+Generator.prototype.generateSourceAndTest = function (appTemplate, testTemplate, targetDirectory, skipAdd) {
   // Services use classified names
   if (this.generatorName.toLowerCase() === 'service') {
     this.cameledName = this.classedName;
   }
 
-  var suffix = '';
-  if(this.suffix) {
-    suffix = '/'+this.suffix;
+  if(this.subdir) {
+    targetDirectory = targetDirectory + '/' + this.subdir;
   }
-  var targetDirectory = _targetDirectory + suffix;
   
   this.appTemplate(appTemplate, path.join('scripts', targetDirectory, this.name));
   this.testTemplate(testTemplate, path.join(targetDirectory, this.name));
