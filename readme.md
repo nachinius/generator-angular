@@ -184,6 +184,15 @@ angular.module('myMod').config(function ($provide) {
 ## Options
 In general, these options can be applied to any generator, though they only affect generators that produce scripts.
 
+### Subdirectory
+Will create the file in a subdirectory of the target directory
+
+For example:
+```bash
+yo angular:controller user --subdir=subdirName
+```
+will create the controller `user` at `controller/subdirName`
+
 ### CoffeeScript
 For generators that output scripts, the `--coffee` option will output CoffeeScript instead of JavaScript.
 
